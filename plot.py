@@ -74,7 +74,7 @@ for h in histos:
 ###   theratios -> disctionary of TH1 ratio wrt histos[0] (meaningful only if ratio is drawn)
 ###
 ###                            phase2tdrStyle.draw([h0,h1,...], drawhist, ratio, log   ) 
-Acanvas, Aunc, Aratios = phase2tdrStyle.draw(histos,      False,    True,  True )
+Acanvas, Aunc, Aratios = phase2tdrStyle.draw(histos,            False,    True,  True )
 
 ### draw "CMS Phase-2 Preliminary" 
 ### 
@@ -85,7 +85,10 @@ phase2tdrStyle.drawCMS()
 ### draw "14 TeV, xxx PU"
 ### 
 ### options:
-###   PU value (default = None) -> if no PU value is specified, only "14 TeV" is drawn
+###   PU   value (default = None) -> if no PU value is specified, only "14 TeV" is drawn
+###                                  both string or int format can be used
+###   LUMI value (default = None) -> if no LUMI value is specified, only "14 TeV" is drawn
+###                                  add lumi as LaTex formatted string, e.g.: '3 ab^{-1}'
 phase2tdrStyle.drawEnPu()
 
 ### draw the legend and save the canvas
@@ -105,7 +108,7 @@ Bcanvas, Bunc, Bratios = phase2tdrStyle.draw([histo_c],      True,    False,  Fa
 phase2tdrStyle.drawCMS(True)
 
 ### draw "14 TeV, xxx PU"
-phase2tdrStyle.drawEnPu(140)
+phase2tdrStyle.drawEnPu(pileup=140, lumi='3 ab^{-1}')
 
 ### save the canvas
 Bcanvas.Print('Bplot.png')
@@ -126,7 +129,7 @@ histo_d.Draw('HIST')
 phase2tdrStyle.drawCMS()
 
 ### draw "14 TeV"
-phase2tdrStyle.drawEnPu(200)
+phase2tdrStyle.drawEnPu(pileup='200')
 
 ### save the canvas
 Ccanvas.Print('Cplot.png')
@@ -149,7 +152,7 @@ histo_e.Draw('COL')
 phase2tdrStyle.drawCMS(True)
 
 ### draw "14 TeV"
-phase2tdrStyle.drawEnPu('No')
+phase2tdrStyle.drawEnPu(lumi='3000 fb^{-1}')
 
 ### save the canvas
 Dcanvas.Print('Dplot.png')
