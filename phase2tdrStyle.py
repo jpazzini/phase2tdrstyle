@@ -20,29 +20,29 @@ from ROOT import TLegend, TLatex, TText, TLine, TBox
 gStyle.SetOptStat(0)
 gStyle.SetOptTitle(0)
 
-def setCanvas(split=False, r=1.15):
+def setCanvas(split=False):
 
     # create canvas
     can = TCanvas("can", "can", 800, 800 if split else 600)    
     if split:
         can.Divide(1, 2)        
         can.GetPad(1).SetPad('Top', '', 0., 0.25, 1.0, 1.0, 0, -1, 0)
-        can.GetPad(1).SetTopMargin(0.06*r)
-        can.GetPad(1).SetBottomMargin(0.016*r)
-        can.GetPad(1).SetRightMargin(0.04*r)
-        can.GetPad(1).SetLeftMargin(0.12*r)
+        can.GetPad(1).SetTopMargin(0.069)
+        can.GetPad(1).SetBottomMargin(0.0184)
+        can.GetPad(1).SetRightMargin(0.046)
+        can.GetPad(1).SetLeftMargin(0.138)
         can.GetPad(1).SetTicks(1, 1)        
         can.GetPad(2).SetPad("Bottom", '', 0., 0., 1.0, 0.25, 0, -1, 0)
-        can.GetPad(2).SetTopMargin(0.008*r)
-        can.GetPad(2).SetBottomMargin(0.32*r)
-        can.GetPad(2).SetRightMargin(0.04*r)
-        can.GetPad(2).SetLeftMargin(0.12*r)
+        can.GetPad(2).SetTopMargin(0.0092)
+        can.GetPad(2).SetBottomMargin(0.368)
+        can.GetPad(2).SetRightMargin(0.046)
+        can.GetPad(2).SetLeftMargin(0.138)
         can.GetPad(2).SetTicks(1, 1)     
     else:   
-        can.GetPad(0).SetTopMargin(0.06*r)
-        can.GetPad(0).SetRightMargin(0.04*r)
-        can.GetPad(0).SetLeftMargin(0.12*r)
-        can.GetPad(0).SetBottomMargin(0.1*r)
+        can.GetPad(0).SetTopMargin(0.069)
+        can.GetPad(0).SetRightMargin(0.046)
+        can.GetPad(0).SetLeftMargin(0.138)
+        can.GetPad(0).SetBottomMargin(0.15)
         can.GetPad(0).SetTicks(1, 1)
 
     can.cd(1)
@@ -69,7 +69,7 @@ def draw(hist, drawhist=False, ratio=False, log=False):
     unc.SetMarkerSize(0)
     hratio = {}
     if ratio :
-        hist[0].GetXaxis().SetLabelOffset(hist[0].GetXaxis().GetLabelOffset()*2)
+        hist[0].GetXaxis().SetLabelOffset(hist[0].GetXaxis().GetLabelOffset()*10)
         can.cd(2)
         unc.SetTitle('')
         unc.GetYaxis().SetTitle('Ratio')
@@ -95,45 +95,50 @@ def draw(hist, drawhist=False, ratio=False, log=False):
     # hratio -> dictionary of TH1 ratio wrt hist[0] (meaningful only if ratio = True)
     return can, unc, hratio
 
-def formatHisto(hist, r=1.15):
-    hist.GetXaxis().SetTitleSize(hist.GetXaxis().GetTitleSize()*r*r)
-    hist.GetXaxis().SetLabelSize(hist.GetXaxis().GetLabelSize()*r*r)
-    hist.GetXaxis().SetLabelOffset(hist.GetXaxis().GetLabelOffset()*r*r*r*r*r)
-    hist.GetXaxis().SetTitleOffset(hist.GetXaxis().GetTitleOffset())
+def formatHisto(hist):
+    hist.GetXaxis().SetTitleSize(0.0462874993682)
+    hist.GetXaxis().SetTitleOffset(1.0)
+    hist.GetXaxis().SetLabelSize(0.0462874993682)
+    hist.GetXaxis().SetLabelOffset(0.0100567853078)
 
-    hist.GetYaxis().SetTitleSize(hist.GetYaxis().GetTitleSize()*r*r)
-    hist.GetYaxis().SetLabelSize(hist.GetYaxis().GetLabelSize()*r*r)
-    hist.GetYaxis().SetTitleOffset(hist.GetYaxis().GetTitleOffset()*r*r)
+    hist.GetYaxis().SetTitleSize(0.0462874993682)
+    hist.GetYaxis().SetTitleOffset(1.32249999046)
+    hist.GetYaxis().SetLabelSize(0.0462874993682)
+    hist.GetYaxis().SetLabelOffset(0.005)
 
-    hist.GetZaxis().SetTitleSize(hist.GetZaxis().GetTitleSize()*r*r)
-    hist.GetZaxis().SetLabelSize(hist.GetZaxis().GetLabelSize()*r*r)
-    hist.GetZaxis().SetTitleOffset(hist.GetZaxis().GetTitleOffset()*r)
+    hist.GetZaxis().SetTitleSize(0.0462874993682)
+    hist.GetZaxis().SetTitleOffset(1.14999997616)
+    hist.GetZaxis().SetLabelSize(0.0462874993682)
 
-def formatRatio(h, r=4):
-    h.GetXaxis().SetLabelSize(h.GetXaxis().GetLabelSize()*(r-1));
-    h.GetXaxis().SetLabelOffset(h.GetXaxis().GetLabelOffset()*(r-1)/2);
-    h.GetXaxis().SetTitleSize(h.GetXaxis().GetTitleSize()*(r-1));
-    h.GetYaxis().SetLabelSize(h.GetYaxis().GetLabelSize()*(r-1));
-    h.GetYaxis().SetNdivisions(505);
-    h.GetYaxis().SetTitleSize(h.GetYaxis().GetTitleSize()*(r-1));
-    h.GetYaxis().SetTitleOffset(h.GetYaxis().GetTitleOffset()/(r-1));
+def formatRatio(h):
+    h.GetXaxis().SetTitleSize(0.138862490654)
+    h.GetXaxis().SetTitleOffset(1.0)
+    h.GetXaxis().SetLabelSize(0.138862490654)
+    h.GetXaxis().SetLabelOffset(0.0150851774961)
+    
+    h.GetYaxis().SetTitleSize(0.138862490654)
+    h.GetYaxis().SetLabelSize(0.138862490654)
+    h.GetYaxis().SetTitleOffset(0.440833330154)
+    h.GetYaxis().SetTitleOffset(0.440833330154)
+    
+    h.GetYaxis().SetNdivisions(505)
     h.GetYaxis().SetRangeUser(0.4, 1.6)
 
-def drawCMS(onTop=False, r=1.15):
+def drawCMS(onTop=False):
     text='Phase-2 Simulation'
     latex = TLatex()
     latex.SetNDC()
     latex.SetTextFont(62)
-    latex.SetTextSize(0.045*r)
+    latex.SetTextSize(0.05175)
     latex.DrawLatex(0.18, 0.85 if not onTop else 0.94, "CMS")
-    latex.SetTextSize(0.036*r)
+    latex.SetTextSize(0.0414)
     latex.SetTextFont(52)
-    latex.DrawLatex(0.18+0.075*r, 0.85 if not onTop else 0.94, text)
+    latex.DrawLatex(0.26625, 0.85 if not onTop else 0.94, text)
     
-def drawEnPu(pileup=None, lumi=None, r=1.15):
+def drawEnPu(pileup=None, lumi=None):
     latex = TLatex()
     latex.SetNDC()
-    latex.SetTextSize(0.040*r)
+    latex.SetTextSize(0.046)
     latex.SetTextColor(1)
     latex.SetTextFont(42)
     latex.SetTextAlign(31)
